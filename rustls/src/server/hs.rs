@@ -114,6 +114,7 @@ impl ExtensionProcessing {
                 if cx.common.alpn_protocol.is_none()
                     && (!our_protocols.is_empty() || maybe_their_protocols.is_some())
                 {
+                    debug!("unable to select compatible alpn protocol");
                     return Err(cx.common.send_fatal_alert(
                         AlertDescription::NoApplicationProtocol,
                         Error::NoApplicationProtocol,
@@ -123,6 +124,7 @@ impl ExtensionProcessing {
                 match hello.get_quic_params_extension() {
                     Some(params) => cx.common.quic.params = Some(params),
                     None => {
+                        debug!("unable to get quic params");
                         return Err(cx
                             .common
                             .missing_extension(PeerMisbehaved::MissingQuicTransportParameters));
