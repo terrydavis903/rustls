@@ -104,6 +104,7 @@ impl ExtensionProcessing {
         #[cfg(feature = "quic")]
         {
             if cx.common.is_quic() {
+                debug!("executing quic stuff");
                 // QUIC has strict ALPN, unlike TLS's more backwards-compatible behavior. RFC 9001
                 // says: "The server MUST treat the inability to select a compatible application
                 // protocol as a connection error of type 0x0178". We judge that ALPN was desired
