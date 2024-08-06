@@ -674,6 +674,7 @@ impl PacketKey {
     ) -> Result<Tag, Error> {
         let aad = aead::Aad::from(header);
         let nonce = nonce_for(packet_number, &self.iv);
+        debug!("rustsl enc aad is: {}, nonce is: {}", aad, nonce);
         let tag = self
             .key
             .seal_in_place_separate_tag(nonce, aad, payload)
@@ -697,6 +698,7 @@ impl PacketKey {
         let payload_len = payload.len();
         let aad = aead::Aad::from(header);
         let nonce = nonce_for(packet_number, &self.iv);
+        debug!("rustsl dec aad is: {}, nonce is: {}", aad, nonce);
         self.key
             .open_in_place(nonce, aad, payload)
             .map_err(|_| Error::DecryptError)?;
