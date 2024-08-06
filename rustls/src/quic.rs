@@ -10,6 +10,7 @@ use crate::server::{ServerConfig, ServerConnectionData};
 use crate::suites::BulkAlgorithm;
 use crate::tls13::key_schedule::hkdf_expand;
 use crate::tls13::{Tls13CipherSuite, TLS13_AES_128_GCM_SHA256_INTERNAL};
+use crate::log::{debug, trace};
 
 use ring::{aead, hkdf};
 
